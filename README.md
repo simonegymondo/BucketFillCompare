@@ -4,6 +4,12 @@ Comparison of some bucket fill algorithms in Python.
 This project compares several algorithms for bucket filling. After some investagation 
 a subset of 4 meaningful algorithms have been chosen. 
 
+## Testing
+
+The methods have been tested with several test cases and invalid inputs. Also the output
+of all bucket filling has been tested against a real image which was bucket filled with GIMP.
+All implementations seem to deliver the same image thus prooving correctness.
+
 ## Recursive Solution
 This is a scan line approach as designed by OpenCV. The algorithm is similar to
 the scanline as described above but it uses a different flow. Instead of filling
@@ -37,15 +43,30 @@ Conclusions
 
 Along with functionality testig, some efficiency measurements were taken.
 
- 'test_big_image': {'EdgeSolution': 0.28133392333984375,
-                    'RecursiveSolution': 0.6091594696044922,
-                    'ScanlineOpenCV': 0.1633167266845703,
-                    'ScanlineWikipedia': 0.16188621520996094},
- 'test_real_image': {'EdgeSolution': 37.99629211425781,
-                     'RecursiveSolution': 4.969120025634766,
-                     'ScanlineOpenCV': 18.491506576538086,
-                     'ScanlineWikipedia': 30.68375587463379},
- 'test_solution': {'EdgeSolution': 0.10180473327636719,
-                   'RecursiveSolution': 0.14281272888183594,
-                   'ScanlineOpenCV': 0.10085105895996094,
-                   'ScanlineWikipedia': 0.10323524475097656},
+### Timing (ms)
+
+| Method         | Recursive  | EdgeSolution  | ScanLineOpenCV | ScanLineWikipedia |
+| -------------  |:----------:| -------------:| --------------:| -----------------:|
+| test_big_image |0.6091      | 0.28133       | 0.16331        | 0.16188           |
+| test_real_image|-           | 37.996        | 18.4931        | 30.6818           |
+| test_solution  |0.142       | 0.10113       | 0.100          | 0.1018            |
+
+
+### Pixel Compare 
+
+| Method         | Recursive  | EdgeSolution  | ScanLineOpenCV | ScanLineWikipedia |
+| -------------  |:----------:| -------------:| --------------:| -----------------:|
+| test_big_image |1000        | 402           | 304            | 308               |
+| test_real_image|-           | 57000         | 28451          | 54671             |
+| test_solution  |290         | 290           | 90             | 163               |
+
+
+We can conclude that the recursive solution is not usable for real scenarios where the image size can grow up to several
+thousands of pixel resolutions. That hapens because of the recursion limit which is hit by the algorithm. The problem
+can be overcome by increasing the stack size, however that is still not optimal since the timing needed is anyway
+higher than the other methods.
+
+The similar edge solution is also quite slow even if it solves the recursion problem. That is due to an increased number of
+loops. The Scan line methods seem to be much more optimal. Among the two, the simple implementation is definitely as fast
+as the OpenCV implementation, however, the latter tend to minimize the array access for pixel comparison giving advantage
+when memory access is expensive or the pixel comparison is non trivial (ie. tolerance filling).
