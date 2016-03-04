@@ -43,7 +43,7 @@ This is similar to the RecursiveSolution except it uses a queue to avoid
 recursion. The flooding type is breadth first since it tries to expand
 from the starting point out to the edges.
 
-Conclusions
+# Conclusions
 
 Along with functionality testig, some efficiency measurements were taken. The following
 are results average from 10 runs.
