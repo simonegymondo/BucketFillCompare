@@ -10,6 +10,10 @@ The methods have been tested with several test cases and invalid inputs. Also th
 of all bucket filling has been tested against a real image which was bucket filled with GIMP.
 All implementations seem to deliver the same image thus prooving correctness.
 
+![Test Image][test_image]
+
+[test_image]: https://github.com/szandara/BucketFillCompare/blob/master/test_kayak_res.jpg
+
 ## Recursive Solution
 This is a scan line approach as designed by OpenCV. The algorithm is similar to
 the scanline as described above but it uses a different flow. Instead of filling
