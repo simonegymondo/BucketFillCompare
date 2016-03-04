@@ -73,5 +73,6 @@ higher than the other methods.
 
 The similar edge solution is also quite slow even if it solves the recursion problem. That is due to an increased number of
 loops. The Scan Line methods seem to be much more optimal. Among the two, the simple implementation is as fast
-as the OpenCV implementation for simple cases, but it deteriorates with the size increase, however, the latter tend to minimize the array access for pixel comparison giving advantage
+as the OpenCV implementation for simple cases, but it deteriorates with the size increase. The scan line implementation
+ of OpenCV tend indeed to minimize the array access for pixel comparison giving  advantage in speed especially 
 when memory access is expensive or the pixel comparison is non trivial (ie. tolerance filling).
