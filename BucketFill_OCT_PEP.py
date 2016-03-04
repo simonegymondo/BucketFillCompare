@@ -234,8 +234,7 @@ class ScanlineWikipedia(Canvas):
             while x1 < w and self.pixels[y1][x1] == old_color:
                 self.pixels[y1][x1] = color
 
-                if not above and y1 > 0 and self.pixels[
-                        y1 - 1][x1] == old_color:
+                if not above and y1 > 0 and self.pixels[y1 - 1][x1] == old_color:
                     self.pixel_comparisons += 1
                     stack.append((x1, y1 - 1))
                     above = True
@@ -243,8 +242,7 @@ class ScanlineWikipedia(Canvas):
                     self.pixel_comparisons += 1
                     above = False
 
-                if not below and y1 < h - \
-                        1 and self.pixels[y1 + 1][x1] == old_color:
+                if not below and y1 < h - 1 and self.pixels[y1 + 1][x1] == old_color:
                     self.pixel_comparisons += 1
                     stack.append((x1, y1 + 1))
                     below = True
@@ -348,8 +346,8 @@ class TestBase():
         """
         Save run information
         """
-        timing_results[
-            self.impl][self] = {
+        method_name = self.id().split('.')[-1] 
+        timing_results[self.impl][method_name] = {
             'array_access': self.canvas.pixel_comparisons,
             'timing': timing_count}
 
@@ -513,4 +511,23 @@ class TestEdgeSolution(TestBase, unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(exit=False)
-    print(timing_results)
+
+    test_timing = {}
+    test_access = {}
+    import pprint
+    
+    for method, test_run in timing_results.items():
+        method = method.__name__.split('.')[-1]
+        for k,v in test_run.items():
+            if k not in test_timing:
+                test_timing[k] = {}
+            test_timing[k][method] = v['timing']
+            
+            if k not in test_access:
+                test_access[k] = {}
+            test_access[k][method] = v['array_access']
+            
+            
+    pprint.pprint(test_timing)
+    pprint.pprint(test_access)
+    
