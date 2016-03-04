@@ -4,6 +4,10 @@ Comparison of some bucket fill algorithms in Python.
 This project compares several algorithms for bucket filling. After some investagation 
 a subset of 4 meaningful algorithms have been chosen. 
 
+To run
+
+  python3 test.py
+
 ## Testing
 
 The methods have been tested with several test cases and invalid inputs. Also the output
@@ -62,8 +66,8 @@ are results average from 10 runs.
 | Method         | Recursive  | EdgeSolution  | ScanLineOpenCV | ScanLineWikipedia |
 | -------------  |:----------:| -------------:| --------------:| -----------------:|
 | test_big_image |1000        | 402           | 304            | 308               |
-| test_real_image|-           | 57000         | 28451          | 54671             |
-| test_solution  |290         | 290           | 90             | 163               |
+| test_real_image|-           | 57000         | 28451          | 50671             |
+| test_solution  |211         | 126           | 90             | 143               |
 
 
 We can conclude that the recursive solution is not usable for real scenarios where the image size can grow up to several
