@@ -1,4 +1,4 @@
-# BucketFillCompare
+# 4-Directions Bucket-Fill Compare
 Comparison of some bucket fill algorithms in Python.
 
 This project compares several algorithms for bucket filling. After some investagation 
