@@ -39,7 +39,11 @@ def timing(f):
 
 
 class Canvas(object):
-
+    """
+    Parent canvas with some commond method and fill method definition.
+    It has some tooling to keep track of the data access and validation.
+    Must be extended by the concrete implementations.
+    """
     class access_count_array(list):
         """
         Access counter for image matrix.
@@ -118,8 +122,7 @@ class EdgeSolution(Canvas):
             newedge = []
             for (x, y) in edge:
                 for (s, t) in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
-                    if s >= 0 and s < w and t >= 0 and t < h and self.pixels[
-                            s][t] == old_color:
+                    if s >= 0 and s < w and t >= 0 and t < h and self.pixels[s][t] == old_color:
                         self.pixels[s][t] = color
                         newedge.append((s, t))
             edge = newedge
@@ -133,6 +136,9 @@ class RecursiveSolution(Canvas):
     """
 
     def _fill(self, x, y, color, old_color):
+        """
+        Support recursive method.
+        """
         h = len(self.pixels[0])
         w = len(self.pixels)
 
@@ -512,6 +518,9 @@ class TestEdgeSolution(TestBase, unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(exit=False)
 
+    """
+    # This code is used to print out some nice result.
+    
     test_timing = {}
     test_access = {}
     import pprint
@@ -530,4 +539,4 @@ if __name__ == '__main__':
             
     pprint.pprint(test_timing)
     pprint.pprint(test_access)
-    
+    """
